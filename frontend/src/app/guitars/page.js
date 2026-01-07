@@ -13,6 +13,7 @@ export default function GuitarsPage() {
     search: "",
     brand: "",
     type: "",
+    priceRange: "",
   });
 
   const { loading, error, execute: fetchGuitars } = useApi();
@@ -80,6 +81,20 @@ export default function GuitarsPage() {
                 <option value="">Semua Tipe</option>
                 <option value="Akustik">Akustik</option>
                 <option value="Klasik">Klasik</option>
+              </select>
+            </div>
+
+            <div className="w-full md:w-56">
+              <select
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white"
+                value={filters.priceRange}
+                onChange={(e) => setFilters({ ...filters, priceRange: e.target.value })}
+              >
+                <option value="">Semua Harga</option>
+                <option value="<= Rp 749.999">{"<= Rp 749.999"}</option>
+                <option value="Rp 750.000 – 999.999">Rp 750.000 – 999.999</option>
+                <option value="Rp 1.000.000 – 1.249.999">Rp 1.000.000 – 1.249.999</option>
+                <option value=">= Rp 1.250.000">{">= Rp 1.250.000"}</option>
               </select>
             </div>
 

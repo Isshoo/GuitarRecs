@@ -10,11 +10,12 @@ const prisma = require("../config/database");
  */
 const getAllGuitars = async (req, res, next) => {
   try {
-    const { brand, type, search } = req.query;
+    const { brand, type, search, priceRange } = req.query;
 
     const where = {};
     if (brand) where.brand = brand;
     if (type) where.type = type;
+    if (priceRange) where.priceRange = priceRange;
     if (search) {
       where.OR = [
         { name: { contains: search, mode: "insensitive" } },
