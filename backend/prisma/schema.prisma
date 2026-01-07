@@ -1,0 +1,61 @@
+// Prisma Schema for Guitar Recommendation System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user") // "user" | "admin"
+  ratings   Rating[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Guitar {
+  id        Int      @id @default(autoincrement())
+  name      String
+  brand     String   // Yamaha, Cort, Anderson, Cordoba
+  type      String   // Akustik, Klasik
+  bodyType  String   // Dreadnought, Concert/Grand, Standard, Narrow Nut Classical
+  strings   String   // Phosphor Bronze, Nilon Tension Normal
+  price     Int      // Price in Rupiah
+  priceRange String  // Range category
+  imageUrl  String?
+  ratings   Rating[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Rating {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  guitarId      Int
+  jenisGitar    Int      // Rating 1-5 for guitar type
+  bahanBody     Int      // Rating 1-5 for body material
+  jenisSenar    Int      // Rating 1-5 for string type
+  merek         Int      // Rating 1-5 for brand
+  harga         Int      // Rating 1-5 for price
+  averageRating Float    // Calculated average of all criteria
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guitar        Guitar   @relation(fields: [guitarId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([userId, guitarId])
+}
+
+model SystemConfig {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
