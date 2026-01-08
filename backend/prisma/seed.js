@@ -33,7 +33,7 @@ async function main() {
 
   // Set default K value
   await prisma.systemConfig.create({
-    data: { key: "k_neighbors", value: "3" },
+    data: { key: "k_neighbors", value: "4" },
   });
 
   // Create users (5 users + 1 admin from thesis)
@@ -62,99 +62,89 @@ async function main() {
 
   console.log(`👥 Created ${users.length} users`);
 
-  // Create 8 guitars from thesis
-  // Create 8 guitars from thesis
-  // Create 8 guitars from thesis
-  const guitars = await Promise.all([
-    prisma.guitar.create({
-      data: {
-        name: "Yamaha F310",
-        brand: "Yamaha",
-        type: "Akustik",
-        bodyType: "Dreadnought",
-        strings: "Phosphor Bronze",
-        price: 1500000,
-        priceRange: ">= Rp 1.250.000",
-      },
-    }),
-    prisma.guitar.create({
-      data: {
-        name: "Yamaha C315",
-        brand: "Yamaha",
-        type: "Klasik",
-        bodyType: "Standard",
-        strings: "Nilon Tension Normal",
-        price: 900000,
-        priceRange: "Rp 750.000 – 999.999",
-      },
-    }),
-    prisma.guitar.create({
-      data: {
-        name: "Cort AD810",
-        brand: "Cort",
-        type: "Akustik",
-        bodyType: "Dreadnought",
-        strings: "Phosphor Bronze",
-        price: 1200000,
-        priceRange: "Rp 1.000.000 – 1.249.999",
-      },
-    }),
-    prisma.guitar.create({
-      data: {
-        name: "Cort AC-50",
-        brand: "Cort",
-        type: "Klasik",
-        bodyType: "Standard",
-        strings: "Nilon Tension Normal",
-        price: 700000,
-        priceRange: "<= Rp 749.999",
-      },
-    }),
-    prisma.guitar.create({
-      data: {
-        name: "Anderson AF-12-N",
-        brand: "Anderson",
-        type: "Akustik",
-        bodyType: "Concert/Grand",
-        strings: "Phosphor Bronze",
-        price: 600000,
-        priceRange: "<= Rp 749.999",
-      },
-    }),
-    prisma.guitar.create({
-      data: {
-        name: "Anderson AF-008 38",
-        brand: "Anderson",
-        type: "Akustik",
-        bodyType: "Concert/Grand",
-        strings: "Phosphor Bronze",
-        price: 550000,
-        priceRange: "<= Rp 749.999",
-      },
-    }),
-    prisma.guitar.create({
-      data: {
-        name: "Yamaha C15",
-        brand: "Yamaha",
-        type: "Klasik",
-        bodyType: "Narrow Nut Classical",
-        strings: "Nilon Tension Normal",
-        price: 800000,
-        priceRange: "Rp 750.000 – 999.999",
-      },
-    }),
-    prisma.guitar.create({
-      data: {
-        name: "Yamaha C370",
-        brand: "Yamaha",
-        type: "Klasik",
-        bodyType: "Standard",
-        strings: "Nilon Tension Normal",
-        price: 1300000,
-        priceRange: ">= Rp 1.250.000",
-      },
-    }),
-  ]);
+  // Create 8 guitars from thesis sequentially to ensure ID/ranking order
+  const guitarList = [
+    {
+      name: "Yamaha F310",
+      brand: "Yamaha",
+      type: "Akustik",
+      bodyType: "Dreadnought",
+      strings: "Phosphor Bronze",
+      price: 1500000,
+      priceRange: ">= Rp 1.250.000",
+    },
+    {
+      name: "Yamaha C315",
+      brand: "Yamaha",
+      type: "Klasik",
+      bodyType: "Standard",
+      strings: "Nilon Tension Normal",
+      price: 900000,
+      priceRange: "Rp 750.000 – 999.999",
+    },
+    {
+      name: "Cort AD810",
+      brand: "Cort",
+      type: "Akustik",
+      bodyType: "Dreadnought",
+      strings: "Phosphor Bronze",
+      price: 1200000,
+      priceRange: "Rp 1.000.000 – 1.249.999",
+    },
+    {
+      name: "Cort AC-50",
+      brand: "Cort",
+      type: "Klasik",
+      bodyType: "Standard",
+      strings: "Nilon Tension Normal",
+      price: 700000,
+      priceRange: "<= Rp 749.999",
+    },
+    {
+      name: "Anderson AF-12-N",
+      brand: "Anderson",
+      type: "Akustik",
+      bodyType: "Concert/Grand",
+      strings: "Phosphor Bronze",
+      price: 600000,
+      priceRange: "<= Rp 749.999",
+    },
+    {
+      name: "Anderson AF-008 38",
+      brand: "Anderson",
+      type: "Akustik",
+      bodyType: "Concert/Grand",
+      strings: "Phosphor Bronze",
+      price: 550000,
+      priceRange: "<= Rp 749.999",
+    },
+    {
+      name: "Yamaha C15",
+      brand: "Yamaha",
+      type: "Klasik",
+      bodyType: "Narrow Nut Classical",
+      strings: "Nilon Tension Normal",
+      price: 800000,
+      priceRange: "Rp 750.000 – 999.999",
+    },
+    {
+      name: "Yamaha C370",
+      brand: "Yamaha",
+      type: "Klasik",
+      bodyType: "Standard",
+      strings: "Nilon Tension Normal",
+      price: 1300000,
+      priceRange: ">= Rp 1.250.000",
+    },
+  ];
+
+  const guitars = [];
+  for (const guitarData of guitarList) {
+    const guitar = await prisma.guitar.create({
+      data: guitarData,
+    });
+    guitars.push(guitar);
+  }
 
   console.log(`🎸 Created ${guitars.length} guitars`);
 

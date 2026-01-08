@@ -30,24 +30,50 @@ export default function RatingsDataPage() {
       <Card>
         <Card.Body>
           <Table headers={["User", "Gitar", "Jenis", "Body", "Senar", "Merek", "Harga", "Rata-rata"]}>
-            {ratings.map((rating) => (
-              <Table.Row key={rating.id}>
-                <Table.Cell>
-                  <span className="font-medium text-gray-900">{rating.user?.name}</span>
-                </Table.Cell>
-                <Table.Cell>
-                  <span className="font-medium text-gray-900">{rating.guitar?.name}</span>
-                </Table.Cell>
-                <Table.Cell>{rating.jenisGitar}</Table.Cell>
-                <Table.Cell>{rating.bahanBody}</Table.Cell>
-                <Table.Cell>{rating.jenisSenar}</Table.Cell>
-                <Table.Cell>{rating.merek}</Table.Cell>
-                <Table.Cell>{rating.harga}</Table.Cell>
-                <Table.Cell>
-                  <RatingStars rating={rating.averageRating} size="sm" />
-                </Table.Cell>
-              </Table.Row>
-            ))}
+            {(() => {
+              // Sort ratings by user name first to ensure they are grouped
+              const sortedRatings = [...ratings].sort((a, b) => {
+                const nameA = a.user?.name || "";
+                const nameB = b.user?.name || "";
+                return nameA.localeCompare(nameB);
+              });
+
+              return sortedRatings.map((rating, index) => {
+                const isFirstOfUser = index === 0 || rating.user?.name !== sortedRatings[index - 1].user?.name;
+
+                let rowSpan = 1;
+                if (isFirstOfUser) {
+                  for (let i = index + 1; i < sortedRatings.length; i++) {
+                    if (sortedRatings[i].user?.name === rating.user?.name) {
+                      rowSpan++;
+                    } else {
+                      break;
+                    }
+                  }
+                }
+
+                return (
+                  <Table.Row key={rating.id}>
+                    {isFirstOfUser && (
+                      <Table.Cell rowSpan={rowSpan} className="align-top bg-white">
+                        <span className="font-medium text-gray-900">{rating.user?.name}</span>
+                      </Table.Cell>
+                    )}
+                    <Table.Cell>
+                      <span className="font-medium text-gray-900">{rating.guitar?.name}</span>
+                    </Table.Cell>
+                    <Table.Cell>{rating.jenisGitar}</Table.Cell>
+                    <Table.Cell>{rating.bahanBody}</Table.Cell>
+                    <Table.Cell>{rating.jenisSenar}</Table.Cell>
+                    <Table.Cell>{rating.merek}</Table.Cell>
+                    <Table.Cell>{rating.harga}</Table.Cell>
+                    <Table.Cell>
+                      <RatingStars rating={rating.averageRating} size="sm" />
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              });
+            })()}
             {ratings.length === 0 && !loading && (
               <Table.Row>
                 <Table.Cell colSpan={8} className="text-center py-8">

@@ -31,7 +31,7 @@ const getAllGuitars = async (req, res, next) => {
           select: { averageRating: true },
         },
       },
-      orderBy: { id: "asc" },
+      orderBy: { createdAt: "asc" },
     });
 
     // Calculate average rating for each guitar
@@ -256,8 +256,8 @@ const getUnratedGuitarsByUser = async (req, res, next) => {
 
     // Get all guitar IDs
     const allGuitars = await prisma.guitar.findMany({
-      select: { id: true, name: true, brand: true },
-      orderBy: { name: "asc" },
+      select: { id: true, name: true, brand: true, createdAt: true },
+      orderBy: { createdAt: "asc" },
     });
 
     // Get rated guitar IDs for this user

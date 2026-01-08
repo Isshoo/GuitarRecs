@@ -12,10 +12,10 @@ const getAllRatings = async (req, res, next) => {
   try {
     const ratings = await prisma.rating.findMany({
       include: {
-        user: { select: { id: true, name: true } },
-        guitar: { select: { id: true, name: true, brand: true } },
+        user: { select: { id: true, name: true, createdAt: true } },
+        guitar: { select: { id: true, name: true, brand: true, createdAt: true } },
       },
-      orderBy: [{ user: { name: "asc" } }, { guitar: { name: "asc" } }],
+      orderBy: [{ user: { createdAt: "asc" } }, { guitar: { createdAt: "asc" } }],
     });
 
     res.json({
@@ -39,7 +39,7 @@ const getRatingsByUser = async (req, res, next) => {
       include: {
         guitar: true,
       },
-      orderBy: { guitar: { name: "asc" } },
+      orderBy: { guitar: { createdAt: "asc" } },
     });
 
     res.json({

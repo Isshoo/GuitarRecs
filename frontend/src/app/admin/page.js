@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { guitarAPI, userAPI, ratingAPI } from "@/lib/api";
+import { guitarAPI, userAPI, ratingAPI, recommendationAPI } from "@/lib/api";
 import { useApi } from "@/hooks/useApi";
 import Card from "@/components/ui/Card";
 import { FiMusic, FiUsers, FiStar, FiActivity } from "react-icons/fi";
@@ -15,6 +15,7 @@ export default function AdminDashboard() {
     totalUsers: 0,
     totalRatings: 0,
     avgRatingsPerUser: 0,
+    k: 4,
   });
 
   const { execute: fetchData } = useApi();
@@ -24,10 +25,12 @@ export default function AdminDashboard() {
   }, []);
 
   const loadStats = async () => {
-    const [guitars, users, ratings] = await Promise.all([
+    const [guitars, users, ratings, k] = await Promise.all([
       fetchData(guitarAPI.getAll),
       fetchData(userAPI.getAll),
       fetchData(ratingAPI.getAll),
+      // fetch nilai k
+      fetchData(recommendationAPI.getKConfig),
     ]);
 
     const ratingCount = ratings.success ? ratings.data.length : 0;
@@ -38,6 +41,7 @@ export default function AdminDashboard() {
       totalUsers: userCount,
       totalRatings: ratingCount,
       avgRatingsPerUser: userCount > 0 ? (ratingCount / userCount).toFixed(1) : 0,
+      k: k.success ? k.data.k : 0,
     });
   };
 
@@ -136,12 +140,8 @@ export default function AdminDashboard() {
               <span className="font-medium">Cosine Similarity</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="text-gray-600">Default K-Neighbors</span>
-              <span className="font-medium">3</span>
-            </div>
-            <div className="flex justify-between py-2">
-              <span className="text-gray-600">Last Database Update</span>
-              <span className="font-medium text-green-600">Live</span>
+              <span className="text-gray-600">K-Neighbors</span>
+              <span className="font-medium">{stats.k}</span>
             </div>
           </Card.Body>
         </Card>

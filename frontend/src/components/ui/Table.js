@@ -27,9 +27,14 @@ Table.Row = function TableRow({ children, className }) {
   return <tr className={twMerge("hover:bg-gray-50 transition-colors", className)}>{children}</tr>;
 };
 
-Table.Cell = function TableCell({ children, className, colSpan }) {
+Table.Cell = function TableCell({ children, className, colSpan, rowSpan, ...props }) {
   return (
-    <td className={twMerge("px-6 py-4 whitespace-nowrap text-sm text-gray-500", className)} colSpan={colSpan}>
+    <td
+      className={twMerge("px-6 py-4 whitespace-nowrap text-sm text-gray-500", className)}
+      colSpan={colSpan}
+      rowSpan={rowSpan}
+      {...props}
+    >
       {children}
     </td>
   );

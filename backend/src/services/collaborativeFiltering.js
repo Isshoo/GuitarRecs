@@ -14,19 +14,19 @@ const { cosineSimilarity, average } = require("../utils/mathUtils");
 const buildUserItemMatrix = async () => {
   const ratings = await prisma.rating.findMany({
     include: {
-      user: { select: { id: true, name: true } },
-      guitar: { select: { id: true, name: true } },
+      user: { select: { id: true, name: true, createdAt: true } },
+      guitar: { select: { id: true, name: true, createdAt: true } },
     },
-    orderBy: [{ user: { name: "asc" } }, { guitar: { name: "asc" } }],
+    orderBy: [{ user: { createdAt: "asc" } }, { guitar: { createdAt: "asc" } }],
   });
 
   const users = await prisma.user.findMany({
     where: { role: "user" },
-    orderBy: { name: "asc" },
+    orderBy: { createdAt: "asc" },
   });
 
   const guitars = await prisma.guitar.findMany({
-    orderBy: { name: "asc" },
+    orderBy: { createdAt: "asc" },
   });
 
   // Build the matrix
@@ -121,7 +121,7 @@ const calculateUserSimilarity = async (targetUserId) => {
  * Step 4: Find Nearest Neighbors
  * Select top K users with highest similarity
  */
-const findNearestNeighbors = async (targetUserId, k = 3) => {
+const findNearestNeighbors = async (targetUserId, k = 4) => {
   const result = await calculateUserSimilarity(targetUserId);
 
   if (!result) return null;
@@ -143,7 +143,7 @@ const findNearestNeighbors = async (targetUserId, k = 3) => {
  * Step 5: Predict Rating for unrated items
  * Uses weighted average of neighbors' ratings
  */
-const predictRating = async (targetUserId, guitarId, k = 3) => {
+const predictRating = async (targetUserId, guitarId, k = 4) => {
   const neighborsResult = await findNearestNeighbors(targetUserId, k);
 
   if (!neighborsResult) {
@@ -203,7 +203,7 @@ const predictRating = async (targetUserId, guitarId, k = 3) => {
 /**
  * Step 5: Predict All Unrated Items
  */
-const predictAllUnratedItems = async (targetUserId, k = 3) => {
+const predictAllUnratedItems = async (targetUserId, k = 4) => {
   const { matrix, guitars } = await buildUserItemMatrix();
   const targetUser = matrix.find((m) => m.userId === targetUserId);
 
@@ -243,7 +243,7 @@ const predictAllUnratedItems = async (targetUserId, k = 3) => {
  * Step 6: Generate Recommendations
  * Returns top N recommended guitars for a user
  */
-const generateRecommendations = async (targetUserId, k = 3, topN = 3) => {
+const generateRecommendations = async (targetUserId, k = 4, topN = 3) => {
   const { predictions } = await predictAllUnratedItems(targetUserId, k);
 
   // Get all rated items too
@@ -292,7 +292,7 @@ const getKValue = async () => {
   const config = await prisma.systemConfig.findUnique({
     where: { key: "k_neighbors" },
   });
-  return config ? parseInt(config.value) : 3;
+  return config ? parseInt(config.value) : 4;
 };
 
 /**

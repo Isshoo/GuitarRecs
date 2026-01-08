@@ -9,15 +9,22 @@ import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
 
+const GUITAR_OPTIONS = {
+  types: ["Akustik", "Klasik"],
+  bodyTypes: ["Dreadnought", "Concert/Grand", "Standard", "Narrow Nut Classical"],
+  strings: ["Phosphor Bronze", "Nilon Tension Normal"],
+  brands: ["Yamaha", "Córdoba", "Cort"],
+};
+
 export default function GuitarManagement() {
   const [guitars, setGuitars] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    brand: "",
-    type: "Akustik",
-    bodyType: "",
-    strings: "",
+    brand: GUITAR_OPTIONS.brands[0],
+    type: GUITAR_OPTIONS.types[0],
+    bodyType: GUITAR_OPTIONS.bodyTypes[0],
+    strings: GUITAR_OPTIONS.strings[0],
     price: "",
     imageUrl: "",
   });
@@ -52,10 +59,10 @@ export default function GuitarManagement() {
       setEditingId(null);
       setFormData({
         name: "",
-        brand: "",
-        type: "Akustik",
-        bodyType: "",
-        strings: "",
+        brand: GUITAR_OPTIONS.brands[0],
+        type: GUITAR_OPTIONS.types[0],
+        bodyType: GUITAR_OPTIONS.bodyTypes[0],
+        strings: GUITAR_OPTIONS.strings[0],
         price: "",
         imageUrl: "",
       });
@@ -103,6 +110,26 @@ export default function GuitarManagement() {
     setFormData({ ...formData, [e.target.id]: e.target.value, errorMessage: "" });
   };
 
+  const renderSelect = (id, label, options) => (
+    <div className="w-full">
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+        {label}
+      </label>
+      <select
+        id={id}
+        className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2 border"
+        value={formData[id]}
+        onChange={handleChange}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -113,14 +140,16 @@ export default function GuitarManagement() {
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <Table headers={["Nama", "Merek", "Tipe", "Harga", "Actions"]}>
+        <Table headers={["Nama", "Jenis Gitar", "Bahan Body", "Jenis Senar", "Merek", "Harga", "Actions"]}>
           {guitars.map((guitar) => (
             <Table.Row key={guitar.id}>
               <Table.Cell>
                 <span className="font-medium text-gray-900">{guitar.name}</span>
               </Table.Cell>
-              <Table.Cell>{guitar.brand}</Table.Cell>
               <Table.Cell>{guitar.type}</Table.Cell>
+              <Table.Cell>{guitar.bodyType}</Table.Cell>
+              <Table.Cell>{guitar.strings}</Table.Cell>
+              <Table.Cell>{guitar.brand}</Table.Cell>
               <Table.Cell>Rp {guitar.price.toLocaleString("id-ID")}</Table.Cell>
               <Table.Cell>
                 <div className="flex space-x-2">
@@ -139,7 +168,7 @@ export default function GuitarManagement() {
           ))}
           {guitars.length === 0 && !loading && (
             <Table.Row>
-              <Table.Cell colSpan={5} className="text-center py-8">
+              <Table.Cell colSpan={7} className="text-center py-8">
                 No guitars found
               </Table.Cell>
             </Table.Row>
@@ -161,25 +190,12 @@ export default function GuitarManagement() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input id="name" label="Nama Gitar" value={formData.name} onChange={handleChange} required />
-            <Input id="brand" label="Merek" value={formData.brand} onChange={handleChange} required />
 
-            <div className="w-full">
-              <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
-                Tipe
-              </label>
-              <select
-                id="type"
-                className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2 border"
-                value={formData.type}
-                onChange={handleChange}
-              >
-                <option value="Akustik">Akustik</option>
-                <option value="Klasik">Klasik</option>
-              </select>
-            </div>
+            {renderSelect("brand", "Merek", GUITAR_OPTIONS.brands)}
+            {renderSelect("type", "Tipe", GUITAR_OPTIONS.types)}
+            {renderSelect("bodyType", "Bentuk Body", GUITAR_OPTIONS.bodyTypes)}
+            {renderSelect("strings", "Jenis Senar", GUITAR_OPTIONS.strings)}
 
-            <Input id="bodyType" label="Bentuk Body" value={formData.bodyType} onChange={handleChange} required />
-            <Input id="strings" label="Jenis Senar" value={formData.strings} onChange={handleChange} required />
             <Input
               id="price"
               label="Harga (Rp)"
@@ -189,7 +205,6 @@ export default function GuitarManagement() {
               required
             />
 
-            {/* Price Range is now automatically calculated */}
             <Input id="imageUrl" label="URL Gambar (Opsional)" value={formData.imageUrl} onChange={handleChange} />
           </div>
 
