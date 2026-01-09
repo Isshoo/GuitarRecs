@@ -57,7 +57,7 @@ export default function RegisterPage() {
 
               <Input
                 id="email"
-                label="Email Address"
+                label="Email"
                 type="email"
                 required
                 value={email}
@@ -67,7 +67,7 @@ export default function RegisterPage() {
 
               <Input
                 id="password"
-                label="Password"
+                label="Kata Sandi"
                 type="password"
                 required
                 value={password}
@@ -85,7 +85,7 @@ export default function RegisterPage() {
           <Card.Footer className="text-center text-sm text-gray-600">
             Sudah punya akun?{" "}
             <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
-              Login disini
+              Masuk disini
             </Link>
           </Card.Footer>
         </Card>

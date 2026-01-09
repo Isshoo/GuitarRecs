@@ -24,7 +24,7 @@ export default function Sidebar() {
   const isActive = (path) => pathname === path || pathname.startsWith(`${path}/`);
 
   const mainLinks = [
-    { name: "Dashboard", href: "/admin", icon: FiHome },
+    { name: "Beranda", href: "/admin", icon: FiHome },
     { name: "Manajemen Gitar", href: "/admin/guitars", icon: FiMusic },
     { name: "Manajemen User", href: "/admin/users", icon: FiUsers },
   ];
@@ -45,14 +45,14 @@ export default function Sidebar() {
       <div className="p-6 border-b border-slate-800">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white">A</div>
-          <span className="font-bold text-xl tracking-wide">Admin Panel</span>
+          <span className="font-bold text-xl tracking-wide">Panel Admin</span>
         </div>
       </div>
 
       <div className="py-6 px-4 space-y-8">
         {/* Main Menu */}
         <div>
-          <h3 className="text-xs uppercase text-slate-500 font-semibold mb-3 px-2">Main Menu</h3>
+          <h3 className="text-xs uppercase text-slate-500 font-semibold mb-3 px-2">Menu Utama</h3>
           <div className="space-y-1">
             {mainLinks.map((link) => (
               <Link
@@ -92,7 +92,7 @@ export default function Sidebar() {
 
         {/* Evaluation */}
         <div>
-          <h3 className="text-xs uppercase text-slate-500 font-semibold mb-3 px-2">Evaluation</h3>
+          <h3 className="text-xs uppercase text-slate-500 font-semibold mb-3 px-2">Evaluasi</h3>
           <div className="space-y-1">
             {evalLinks.map((link) => (
               <Link
@@ -125,7 +125,7 @@ export default function Sidebar() {
           className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-red-400 hover:bg-slate-800 transition-colors"
         >
           <FiLogOut className="w-4 h-4" />
-          Logout
+          Keluar
         </button>
       </div>
     </aside>

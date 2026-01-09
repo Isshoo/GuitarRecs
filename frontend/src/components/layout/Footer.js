@@ -5,7 +5,8 @@ export default function Footer() {
         <div className="md:flex md:items-center md:justify-between">
           <div className="flex justify-center md:justify-start">
             <p className="text-center text-sm text-gray-400">
-              &copy; {new Date().getFullYear()} GuitarRecs. Sistem Rekomendasi Gitar Metode User-Based CF.
+              &copy; {new Date().getFullYear()} GuitarRecs. Sistem Rekomendasi Gitar menggunakan Metode Collaborative
+              Filtering.
             </p>
           </div>
           <div className="mt-4 flex justify-center md:mt-0 md:justify-end space-x-6">

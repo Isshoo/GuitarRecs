@@ -1,6 +1,6 @@
 /**
  * Collaborative Filtering Service
- * User-Based Collaborative Filtering with Cosine Similarity
+ * Collaborative Filtering with Cosine Similarity
  */
 
 const prisma = require("../config/database");

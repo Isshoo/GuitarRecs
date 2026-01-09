@@ -72,7 +72,7 @@ export default function Navbar() {
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-red-600 hover:bg-red-50"
                   >
                     <FiLogOut className="w-4 h-4" />
-                    Logout
+                    Keluar
                   </button>
                 </>
               ) : (
@@ -81,7 +81,7 @@ export default function Navbar() {
                   className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
                 >
                   <FiLogIn className="w-4 h-4" />
-                  Login
+                  Masuk
                 </Link>
               )}
             </div>
@@ -147,7 +147,7 @@ export default function Navbar() {
                   >
                     <div className="flex items-center gap-3">
                       <FiLogOut className="w-5 h-5" />
-                      Logout
+                      Keluar
                     </div>
                   </button>
                 </>
@@ -159,7 +159,7 @@ export default function Navbar() {
                 >
                   <div className="flex items-center gap-3">
                     <FiLogIn className="w-5 h-5" />
-                    Login
+                    Masuk
                   </div>
                 </Link>
               )}

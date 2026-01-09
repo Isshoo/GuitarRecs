@@ -39,7 +39,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Login ke Akun Anda</h2>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Masuk ke Akun Anda</h2>
           <p className="mt-2 text-sm text-gray-600">Selamat datang kembali di GuitarRecs</p>
         </div>
 
@@ -50,7 +50,7 @@ export default function LoginPage() {
 
               <Input
                 id="email"
-                label="Email Address"
+                label="Email"
                 type="email"
                 required
                 value={email}
@@ -60,7 +60,7 @@ export default function LoginPage() {
 
               <Input
                 id="password"
-                label="Password"
+                label="Kata Sandi"
                 type="password"
                 required
                 value={password}
@@ -70,7 +70,7 @@ export default function LoginPage() {
 
               <div>
                 <Button type="submit" className="w-full" loading={loading}>
-                  Sign in
+                  Masuk
                 </Button>
               </div>
             </form>

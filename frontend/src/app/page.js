@@ -18,8 +18,8 @@ export default function HomePage() {
             <span className="block text-blue-600">Sesuai Gaya Kamu</span>
           </h1>
           <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Sistem rekomendasi cerdas menggunakan metode User-Based Collaborative Filtering untuk membantu Anda memilih
-            gitar akustik atau klasik yang paling cocok.
+            Sistem rekomendasi cerdas menggunakan metode Collaborative Filtering untuk membantu Anda memilih gitar
+            akustik atau klasik yang paling cocok.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">

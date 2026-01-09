@@ -137,7 +137,7 @@ export default function GuitarManagement() {
         <h1 className="text-2xl font-bold text-gray-900">Manajemen Gitar</h1>
         <div className="flex gap-2">
           <Button onClick={() => setIsMasterDataOpen(true)} variant="outline" className="flex items-center gap-2">
-            <FiInfo className="w-4 h-4" /> Master Data
+            <FiInfo className="w-4 h-4" /> Data Kriteria
           </Button>
           <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
             <FiPlus className="w-4 h-4" /> Tambah Gitar
@@ -225,12 +225,7 @@ export default function GuitarManagement() {
         </form>
       </Modal>
 
-      <Modal
-        isOpen={isMasterDataOpen}
-        onClose={() => setIsMasterDataOpen(false)}
-        title="Master Data Kriteria"
-        size="lg"
-      >
+      <Modal isOpen={isMasterDataOpen} onClose={() => setIsMasterDataOpen(false)} title="Data Kriteria" size="lg">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 border">
             <thead className="bg-gray-50">

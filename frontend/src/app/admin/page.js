@@ -67,7 +67,7 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Beranda Admin</h1>
         <p className="text-gray-500">Selamat datang kembali, {user?.name}</p>
       </div>
 
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card>
           <Card.Header>
-            <h3 className="text-lg font-medium text-gray-900">Quick Actions</h3>
+            <h3 className="text-lg font-medium text-gray-900">Aksi Cepat</h3>
           </Card.Header>
           <Card.Body className="grid grid-cols-2 gap-4">
             <Link
@@ -128,15 +128,15 @@ export default function AdminDashboard() {
 
         <Card>
           <Card.Header>
-            <h3 className="text-lg font-medium text-gray-900">System Info</h3>
+            <h3 className="text-lg font-medium text-gray-900">Informasi Sistem</h3>
           </Card.Header>
           <Card.Body className="space-y-4">
             <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="text-gray-600">Algorithm</span>
-              <span className="font-medium">User-Based Collaborative Filtering</span>
+              <span className="text-gray-600">Algoritma</span>
+              <span className="font-medium">Collaborative Filtering</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="text-gray-600">Similarity Metric</span>
+              <span className="text-gray-600">Metrik Similaritas</span>
               <span className="font-medium">Cosine Similarity</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-100">
