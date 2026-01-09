@@ -34,9 +34,12 @@ export default function UserManagement() {
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <Table headers={["Nama", "Email", "Role", "Bergabung", "Actions"]}>
-          {users.map((user) => (
+        <Table headers={["Kode", "Nama", "Email", "Role", "Bergabung", "Aksi"]}>
+          {users.map((user, index) => (
             <Table.Row key={user.id}>
+              <Table.Cell>
+                <span className="font-medium text-gray-900">{user.role === "admin" ? "Admin" : "U" + index}</span>
+              </Table.Cell>
               <Table.Cell>
                 <span className="font-medium text-gray-900">{user.name}</span>
               </Table.Cell>

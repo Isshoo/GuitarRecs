@@ -109,7 +109,7 @@ export default function PredictionPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Step 5: Prediction Rating</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Langkah 5: Prediksi Rating</h1>
         <p className="text-gray-500">Menghitung prediksi rating untuk semua item yang belum dinilai target user.</p>
       </div>
 
@@ -131,7 +131,7 @@ export default function PredictionPage() {
 
       <Card>
         <Card.Body>
-          <Table headers={["Item (Gitar)", "Predicted Rating", "Status", "Action"]}>
+          <Table headers={["Item (Gitar)", "Prediksi Rating", "Status", "Aksi"]}>
             {predictions.map((item, index) => (
               <Table.Row key={index}>
                 <Table.Cell>

@@ -7,7 +7,7 @@ import Table from "@/components/ui/Table";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
-import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiPlus, FiInfo } from "react-icons/fi";
 
 const GUITAR_OPTIONS = {
   types: ["Akustik", "Klasik"],
@@ -19,6 +19,7 @@ const GUITAR_OPTIONS = {
 export default function GuitarManagement() {
   const [guitars, setGuitars] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMasterDataOpen, setIsMasterDataOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     brand: GUITAR_OPTIONS.brands[0],
@@ -134,15 +135,23 @@ export default function GuitarManagement() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">Manajemen Gitar</h1>
-        <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
-          <FiPlus className="w-4 h-4" /> Tambah Gitar
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={() => setIsMasterDataOpen(true)} variant="outline" className="flex items-center gap-2">
+            <FiInfo className="w-4 h-4" /> Master Data
+          </Button>
+          <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
+            <FiPlus className="w-4 h-4" /> Tambah Gitar
+          </Button>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <Table headers={["Nama", "Jenis Gitar", "Bahan Body", "Jenis Senar", "Merek", "Harga", "Actions"]}>
-          {guitars.map((guitar) => (
+        <Table headers={["Kode", "Nama", "Jenis Gitar", "Bahan Body", "Jenis Senar", "Merek", "Harga", "Aksi"]}>
+          {guitars.map((guitar, index) => (
             <Table.Row key={guitar.id}>
+              <Table.Cell>
+                <span className="font-medium text-gray-900">G{index + 1}</span>
+              </Table.Cell>
               <Table.Cell>
                 <span className="font-medium text-gray-900">{guitar.name}</span>
               </Table.Cell>
@@ -214,6 +223,99 @@ export default function GuitarManagement() {
             </Button>
           </div>
         </form>
+      </Modal>
+
+      <Modal
+        isOpen={isMasterDataOpen}
+        onClose={() => setIsMasterDataOpen(false)}
+        title="Master Data Kriteria"
+        size="lg"
+      >
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 border">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r">
+                  Kriteria
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Nilai Kriteria
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 text-sm">
+              {/* Jenis Gitar */}
+              <tr>
+                <td className="px-6 py-4 font-medium text-gray-900 border-r align-top" rowSpan={2}>
+                  Jenis gitar (K1)
+                </td>
+                <td className="px-6 py-2">1 - Akustik</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-2">2 - Klasik</td>
+              </tr>
+
+              {/* Bahan Body */}
+              <tr className="bg-gray-50">
+                <td className="px-6 py-4 font-medium text-gray-900 border-r align-top" rowSpan={4}>
+                  Bahan body (K2)
+                </td>
+                <td className="px-6 py-2">1 - Dreadnought</td>
+              </tr>
+              <tr className="bg-gray-50">
+                <td className="px-6 py-2">2 - Concert/Grand</td>
+              </tr>
+              <tr className="bg-gray-50">
+                <td className="px-6 py-2">3 - Standard</td>
+              </tr>
+              <tr className="bg-gray-50">
+                <td className="px-6 py-2">4 - Narrow Nut Classical</td>
+              </tr>
+
+              {/* Jenis Senar */}
+              <tr>
+                <td className="px-6 py-4 font-medium text-gray-900 border-r align-top" rowSpan={2}>
+                  Jenis senar (K3)
+                </td>
+                <td className="px-6 py-2">1 - Phosphor Bronze</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-2">2 - Nilon Tension Normal</td>
+              </tr>
+
+              {/* Merek */}
+              <tr className="bg-gray-50">
+                <td className="px-6 py-4 font-medium text-gray-900 border-r align-top" rowSpan={3}>
+                  Merek (K4)
+                </td>
+                <td className="px-6 py-2">1 - Yamaha</td>
+              </tr>
+              <tr className="bg-gray-50">
+                <td className="px-6 py-2">2 - Córdoba</td>
+              </tr>
+              <tr className="bg-gray-50">
+                <td className="px-6 py-2">3 - Cort</td>
+              </tr>
+
+              {/* Harga */}
+              <tr>
+                <td className="px-6 py-4 font-medium text-gray-900 border-r align-top" rowSpan={4}>
+                  Harga (K5)
+                </td>
+                <td className="px-6 py-2">1 - &lt;= Rp 749.999</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-2">2 - Rp 750.000 – 999.999</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-2">3 - Rp 1.000.000 – 1.249.999</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-2">4 - &gt;= Rp 1.250.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </Modal>
     </div>
   );

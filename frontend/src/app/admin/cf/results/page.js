@@ -54,7 +54,7 @@ export default function ResultsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Step 6: Recommendation Results</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Langkah 6: Hasil Rekomendasi</h1>
         <p className="text-gray-500">
           Hasil akhir rekomendasi untuk user setelah diurutkan berdasarkan prediksi rating tertinggi.
         </p>
@@ -80,7 +80,7 @@ export default function ResultsPage() {
 
       <Card>
         <Card.Body>
-          <Table headers={["Rank", "Guitar Name", "Predicted Rating", "Status"]}>
+          <Table headers={["Rank", "Nama Gitar", "Prediksi Rating", "Status"]}>
             {recommendations.map((item, index) => (
               <Table.Row key={index}>
                 <Table.Cell>
@@ -101,7 +101,6 @@ export default function ResultsPage() {
                 <Table.Cell>
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-900">{item.guitarName}</span>
-                    <span className="text-xs text-gray-500">ID: {item.guitarId}</span>
                   </div>
                 </Table.Cell>
                 <Table.Cell>

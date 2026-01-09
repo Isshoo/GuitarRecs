@@ -29,7 +29,7 @@ export default function RatingsDataPage() {
 
       <Card>
         <Card.Body>
-          <Table headers={["User", "Gitar", "Jenis", "Body", "Senar", "Merek", "Harga", "Rata-rata"]}>
+          <Table headers={["User", "Gitar", "Jenis Gitar", "Bahan Body", "Jenis Senar", "Merek", "Harga", "Rata-rata"]}>
             {(() => {
               // Sort ratings by user name first to ensure they are grouped
               const sortedRatings = [...ratings].sort((a, b) => {

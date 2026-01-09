@@ -117,7 +117,7 @@ export default function SimilarityPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Step 3: Cosine Similarity</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Langkah 3: Cosine Similarity</h1>
         <p className="text-gray-500">Menghitung tingkat kemiripan antar pengguna menggunakan Cosine Similarity.</p>
       </div>
 
@@ -142,21 +142,21 @@ export default function SimilarityPage() {
         <Card.Body>
           <Table
             headers={[
-              "User A (Target)",
-              "User B (Neighbor)",
+              // "User A (Target)",
+              "User Neighbor",
               "Jumlah Irisan",
-              "Similarity Score",
-              "Interpretation",
-              "Action",
+              "Nilai Similarity",
+              "Interpretasi",
+              "Aksi",
             ]}
           >
             {similarityData.map((item, index) => (
               <Table.Row key={index}>
-                <Table.Cell>
+                {/* <Table.Cell>
                   <span className="font-medium text-blue-600">
                     {users.find((u) => u.id === parseInt(selectedUser))?.name || "-"}
                   </span>
-                </Table.Cell>
+                </Table.Cell> */}
                 <Table.Cell>
                   <span className="font-medium text-gray-900">{item.userName}</span>
                 </Table.Cell>

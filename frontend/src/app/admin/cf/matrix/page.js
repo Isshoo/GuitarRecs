@@ -22,7 +22,7 @@ export default function UserItemMatrixPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Step 2: User-Item Matrix</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Langkah 2: User-Item Matrix</h1>
         <p className="text-gray-500">Representasi data rating dalam bentuk matriks User x Item.</p>
       </div>
 

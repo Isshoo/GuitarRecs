@@ -59,7 +59,7 @@ export default function NeighborsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Step 4: Nearest Neighbors</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Langkah 4: Nearest Neighbors</h1>
         <p className="text-gray-500">Menentukan K tetangga terdekat berdasarkan skor similaritas tertinggi.</p>
       </div>
 
@@ -98,7 +98,7 @@ export default function NeighborsPage() {
       <Card>
         <Card.Body>
           <h3 className="text-lg font-medium text-gray-900 mb-4">Top {kValue} Neighbors untuk User Terpilih</h3>
-          <Table headers={["Rank", "Neighbor User", "Similarity Score", "Status"]}>
+          <Table headers={["Rank", "User Neighbor", "Nilai Similarity", "Status"]}>
             {neighbors.map((neighbor, index) => (
               <Table.Row key={index}>
                 <Table.Cell>
